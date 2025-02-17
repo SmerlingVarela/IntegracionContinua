@@ -1,0 +1,31 @@
+name: Ejecutar Pruebas Unitarias
+
+on: 
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: 📦 Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Instalar dependencias
+        run: npm ci
+
+      - name: 🔍 Verificar instalación de Jest
+        run: npx jest --version
+
+      - name: 🚀 Ejecutar pruebas con Jest
+        run: npm test
